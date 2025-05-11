@@ -82,7 +82,7 @@ const ChapterList = ({
       </div>
 
       <div className="pt-4">
-        {allChaptersCompleted ? (
+        {allCompleted ? (
           <Link to={`/courses/${courseId}/final-exam`}>
             <Button className="w-full purple-gradient">
               {language === "en" ? "Start Final Exam" : "بدء الامتحان النهائي"}
