@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { Eye, EyeOff, Lock } from "lucide-react";
+import { Eye, EyeOff, Lock, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -30,7 +30,7 @@ const LoginForm = () => {
         description: "Welcome back to Learning Hub.",
       });
       
-      navigate("/");
+      navigate("/courses");
     } catch (error) {
       toast({
         variant: "destructive",
@@ -50,31 +50,37 @@ const LoginForm = () => {
         </div>
         <h1 className="text-2xl font-bold">Welcome Back!</h1>
         <p className="text-muted-foreground">
-          Log in to access your learning journey
+          Sign in to continue
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="username">Username</Label>
-          <Input
-            id="username"
-            placeholder="Enter your username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5" />
+            <Input
+              id="username"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="pl-10"
+              required
+            />
+          </div>
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
           <div className="relative">
+            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5" />
             <Input
               id="password"
               type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="pl-10"
               required
             />
             <Button
