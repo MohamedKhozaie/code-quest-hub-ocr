@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,25 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				learning: {
+					primary: '#1E88E5',
+					secondary: '#0D47A1',
+					accent: '#9b87f5',
+					success: '#4CAF50',
+					error: '#F44336',
+					warning: '#FFA726',
+					info: '#29B6F6',
+					background: '#FFFFFF',
+					card: '#F5F7FA',
+					border: '#E0E6ED'
 				}
+			},
+			backgroundImage: {
+				'gradient-blue': 'linear-gradient(135deg, #1E88E5 0%, #0D47A1 100%)',
+				'gradient-purple': 'linear-gradient(135deg, #9b87f5 0%, #7E69AB 100%)',
+				'gradient-success': 'linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%)',
+				'gradient-error': 'linear-gradient(135deg, #F44336 0%, #C62828 100%)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
