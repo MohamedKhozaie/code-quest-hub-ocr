@@ -10,6 +10,9 @@ import SignupPage from "./pages/SignupPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import CoursesPage from "./pages/CoursesPage";
 import CourseDetailPage from "./pages/CourseDetailPage";
+import LessonDetailPage from "./pages/LessonDetailPage";
+import QuizPage from "./pages/QuizPage";
+import QuizResultsPage from "./pages/QuizResultsPage";
 import ProblemsPage from "./pages/ProblemsPage";
 import ProblemDetailPage from "./pages/ProblemDetailPage";
 import NotFound from "./pages/NotFound";
@@ -30,6 +33,9 @@ const App = () => (
           <Route path="/home" element={<Index />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/courses/:courseId" element={<CourseDetailPage />} />
+          <Route path="/courses/:courseId/chapters/:chapterId/lessons/:lessonId" element={<LessonDetailPage />} />
+          <Route path="/courses/:courseId/chapters/:chapterId/lessons/:lessonId/quiz" element={<QuizPage />} />
+          <Route path="/courses/:courseId/chapters/:chapterId/lessons/:lessonId/quiz/results" element={<QuizResultsPage />} />
           <Route path="/problems" element={<ProblemsPage />} />
           <Route path="/problems/:problemId" element={<ProblemDetailPage />} />
           <Route path="*" element={<NotFound />} />

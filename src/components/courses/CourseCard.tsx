@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
-import { Clock, BookOpen } from "lucide-react";
+import { Clock, BookOpen, Users } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 interface CourseCardProps {
@@ -28,13 +28,13 @@ const CourseCard = ({
   estimatedHours = 0
 }: CourseCardProps) => {
   return (
-    <Link to={`/courses/${id}`} className="block h-full">
-      <div className="enhanced-card h-full flex flex-col">
-        <div className="h-36 overflow-hidden">
+    <Link to={`/courses/${id}`} className="block h-full group">
+      <div className="enhanced-card h-full flex flex-col bg-white rounded-xl shadow-sm border border-learning-border overflow-hidden transition-all duration-300 hover:shadow-md hover:translate-y-[-4px]">
+        <div className="h-40 overflow-hidden">
           <img
             src={image}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
           />
         </div>
@@ -52,8 +52,8 @@ const CourseCard = ({
             </div>
           )}
           
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <Badge variant="outline" className="bg-learning-card">
+          <div className="flex flex-wrap items-center justify-between gap-2 mt-auto">
+            <Badge variant="outline" className="bg-gradient-blue text-white">
               {category}
             </Badge>
             
@@ -61,7 +61,7 @@ const CourseCard = ({
               {chaptersCount > 0 && (
                 <div className="flex items-center text-xs text-gray-500">
                   <BookOpen className="h-3 w-3 mr-1" />
-                  <span>{chaptersCount} chapters</span>
+                  <span>{chaptersCount}</span>
                 </div>
               )}
               
