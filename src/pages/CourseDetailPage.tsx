@@ -1,3 +1,4 @@
+
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -5,50 +6,14 @@ import Navbar from "@/components/Navbar";
 import ChapterList from "@/components/courses/ChapterList";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-
-// Sample course data
-const coursesData = {
-  "python-data-science": {
-    id: "python-data-science",
-    title: "Python for Data Science",
-    description: "Master data analysis, visualization, and machine learning with Python. This comprehensive course covers everything from basic Python syntax to advanced data science techniques.",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop",
-    category: "Data Science",
-    language: "English",
-    chapters: [
-      {
-        id: "chapter-1",
-        title: "Introduction to Data Science with Python",
-        description: "Learn the basics of data science and why Python is the preferred programming language for this field.",
-        isCompleted: true,
-      },
-      {
-        id: "chapter-2",
-        title: "Working with Data in Python",
-        description: "Learn how to manipulate data using pandas and numpy libraries.",
-        isCompleted: true,
-      },
-      {
-        id: "chapter-3",
-        title: "Data Visualization with Matplotlib and Seaborn",
-        description: "Create insightful visualizations to represent your data effectively.",
-        isCompleted: false,
-      },
-      {
-        id: "chapter-4",
-        title: "Introduction to Machine Learning with Python",
-        description: "Learn the fundamentals of machine learning and implement your first models.",
-        isCompleted: false,
-      },
-    ],
-  },
-  // Other courses would be defined here
-};
+import { Button } from "@/components/ui/button";
+import coursesData from "@/data/coursesData";
 
 const CourseDetailPage = () => {
   const { courseId } = useParams<{ courseId: string }>();
   const [course, setCourse] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [language, setLanguage] = useState<"en" | "ar">("en"); // Default to English
   const { toast } = useToast();
 
   useEffect(() => {
@@ -62,15 +27,17 @@ const CourseDetailPage = () => {
         } else {
           toast({
             variant: "destructive",
-            title: "Course not found",
-            description: "The course you're looking for doesn't exist.",
+            title: language === "en" ? "Course not found" : "لم يتم العثور على الدورة",
+            description: language === "en" 
+              ? "The course you're looking for doesn't exist." 
+              : "الدورة التي تبحث عنها غير موجودة.",
           });
         }
       } catch (error) {
         toast({
           variant: "destructive",
-          title: "Failed to load course",
-          description: "Please try again later.",
+          title: language === "en" ? "Failed to load course" : "فشل تحميل الدورة",
+          description: language === "en" ? "Please try again later." : "يرجى المحاولة مرة أخرى لاحقًا.",
         });
       } finally {
         setLoading(false);
@@ -78,7 +45,12 @@ const CourseDetailPage = () => {
     };
 
     fetchCourse();
-  }, [courseId, toast]);
+  }, [courseId, toast, language]);
+
+  // Toggle language function
+  const toggleLanguage = () => {
+    setLanguage(language === "en" ? "ar" : "en");
+  };
 
   // Calculate if all chapters are completed
   const allChaptersCompleted = course?.chapters?.every((chapter: any) => chapter.isCompleted) || false;
@@ -89,6 +61,16 @@ const CourseDetailPage = () => {
       
       <main className="container px-4 mx-auto py-8">
         <div className="max-w-4xl mx-auto">
+          <div className="flex justify-end mb-4">
+            <Button
+              onClick={toggleLanguage}
+              variant="outline"
+              size="sm"
+            >
+              {language === "en" ? "العربية" : "English"}
+            </Button>
+          </div>
+          
           {loading ? (
             <div className="space-y-4">
               <Skeleton className="h-12 w-3/4" />
@@ -99,22 +81,23 @@ const CourseDetailPage = () => {
           ) : course ? (
             <>
               <div className="mb-8">
-                <h1 className="text-3xl font-bold mb-2">{course.title}</h1>
+                <h1 className="text-3xl font-bold mb-2">{course.title[language]}</h1>
                 <Badge variant="outline" className="bg-learning-card mb-4">
-                  {course.category}
+                  {course.category[language]}
                 </Badge>
                 <div className="aspect-video w-full overflow-hidden rounded-xl mb-6">
                   <img
                     src={course.image}
-                    alt={course.title}
+                    alt={course.imagePlaceholder[language]}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <p className="text-gray-600">{course.description}</p>
+                <p className="text-gray-600">{course.detailedDescription[language]}</p>
               </div>
 
               <div className="border-t border-learning-border pt-8">
                 <ChapterList
+                  language={language}
                   courseId={course.id}
                   chapters={course.chapters}
                   allCompleted={allChaptersCompleted}
@@ -123,8 +106,14 @@ const CourseDetailPage = () => {
             </>
           ) : (
             <div className="text-center py-12">
-              <h2 className="text-2xl font-semibold text-gray-800">Course not found</h2>
-              <p className="text-gray-600 mt-2">The course you're looking for doesn't exist.</p>
+              <h2 className="text-2xl font-semibold text-gray-800">
+                {language === "en" ? "Course not found" : "لم يتم العثور على الدورة"}
+              </h2>
+              <p className="text-gray-600 mt-2">
+                {language === "en" 
+                  ? "The course you're looking for doesn't exist." 
+                  : "الدورة التي تبحث عنها غير موجودة."}
+              </p>
             </div>
           )}
         </div>
