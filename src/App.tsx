@@ -15,6 +15,9 @@ import QuizPage from "./pages/QuizPage";
 import QuizResultsPage from "./pages/QuizResultsPage";
 import ProblemsPage from "./pages/ProblemsPage";
 import ProblemDetailPage from "./pages/ProblemDetailPage";
+import CategoryDetailPage from "./pages/CategoryDetailPage";
+import FinalExamPage from "./pages/FinalExamPage";
+import ExamResultsPage from "./pages/ExamResultsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +40,9 @@ const App = () => (
           <Route path="/courses/:courseId/chapters/:chapterId/lessons/:lessonId" element={<LessonDetailPage />} />
           <Route path="/courses/:courseId/chapters/:chapterId/lessons/:lessonId/quiz" element={<QuizPage />} />
           <Route path="/courses/:courseId/chapters/:chapterId/lessons/:lessonId/quiz/results" element={<QuizResultsPage />} />
+          <Route path="/categories/:categoryId" element={<CategoryDetailPage />} />
+          <Route path="/categories/:categoryId/exam" element={<FinalExamPage />} />
+          <Route path="/categories/:categoryId/exam-results" element={<ExamResultsPage />} />
           <Route path="/problems" element={<ProblemsPage />} />
           <Route path="/problems/:problemId" element={<ProblemDetailPage />} />
           <Route path="*" element={<NotFound />} />
