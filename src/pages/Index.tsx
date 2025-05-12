@@ -1,4 +1,3 @@
-
 import {
   BookOpen,
   Code,
@@ -53,13 +52,13 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      
+
       <main className="container px-4 mx-auto py-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">
               <span className="bg-clip-text text-transparent bg-gradient-blue">
-                Learning Hub
+                Programming Hub
               </span>
             </h1>
             <p className="text-xl text-gray-600">

@@ -52,9 +52,9 @@ const Navbar = () => {
         <div className="flex items-center">
           <Link to="/home" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-r from-primary to-primary/60 rounded-md flex items-center justify-center">
-              <span className="font-bold text-xl text-white">CQ</span>
+              <span className="font-bold text-xl text-white">PH</span>
             </div>
-            <span className="font-bold text-xl text-primary hidden sm:inline-block">Code Quest Hub</span>
+            <span className="font-bold text-xl text-primary hidden sm:inline-block">Programming Hub</span>
           </Link>
         </div>
 

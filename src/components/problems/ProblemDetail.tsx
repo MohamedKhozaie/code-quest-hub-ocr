@@ -151,10 +151,10 @@ const ProblemDetail = ({
   return (
     <div className="space-y-6">
       <div>
-        <div className="flex items-center justify-between mb-2">
-          <h1 className="text-2xl font-bold">{title}</h1>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
+          <h1 className="text-xl sm:text-2xl font-bold">{title}</h1>
           {difficulty && (
-            <span className={`px-3 py-1 rounded-full text-sm font-medium ${difficulty === "Easy" ? "bg-green-100 text-green-800" :
+            <span className={`px-3 py-1 rounded-full text-sm font-medium w-fit ${difficulty === "Easy" ? "bg-green-100 text-green-800" :
               difficulty === "Medium" ? "bg-yellow-100 text-yellow-800" :
                 "bg-red-100 text-red-800"
               }`}>
@@ -162,22 +162,22 @@ const ProblemDetail = ({
             </span>
           )}
         </div>
-        <p className="text-gray-600 whitespace-pre-line">{description}</p>
+        <p className="text-gray-600 whitespace-pre-line text-sm sm:text-base">{description}</p>
       </div>
 
       {constraints && (
         <div>
-          <h2 className="text-lg font-semibold">Constraints</h2>
-          <p className="text-gray-600 whitespace-pre-line">{constraints}</p>
+          <h2 className="text-base sm:text-lg font-semibold">Constraints</h2>
+          <p className="text-gray-600 whitespace-pre-line text-sm sm:text-base">{constraints}</p>
         </div>
       )}
 
-      <div className="space-y-4">
-        <h2 className="text-lg font-semibold">Examples</h2>
+      <div className="space-y-3 sm:space-y-4">
+        <h2 className="text-base sm:text-lg font-semibold">Examples</h2>
         {examples.map((example, index) => (
           <div
             key={index}
-            className="border border-learning-border rounded-lg p-4 bg-learning-card"
+            className="border border-learning-border rounded-lg p-3 sm:p-4 bg-learning-card text-sm sm:text-base"
           >
             <div className="mb-2">
               <span className="font-medium">Input:</span> {example.input}
@@ -196,8 +196,8 @@ const ProblemDetail = ({
 
       {hints && hints.length > 0 && (
         <div className="space-y-2">
-          <h2 className="text-lg font-semibold">Hints</h2>
-          <ul className="list-disc list-inside space-y-1 text-gray-600">
+          <h2 className="text-base sm:text-lg font-semibold">Hints</h2>
+          <ul className="list-disc list-inside space-y-1 text-gray-600 text-sm sm:text-base">
             {hints.map((hint, index) => (
               <li key={index}>{hint}</li>
             ))}
@@ -207,21 +207,22 @@ const ProblemDetail = ({
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Your Solution</h2>
+          <h2 className="text-base sm:text-lg font-semibold">Your Solution</h2>
           {sampleSolution && (
             <Button
               variant="outline"
               size="sm"
               onClick={() => setShowSolution(!showSolution)}
+              className="text-xs sm:text-sm"
             >
               {showSolution ? "Hide Solution" : "Show Solution"}
             </Button>
           )}
         </div>
         {showSolution && sampleSolution && (
-          <div className="border border-learning-border rounded-lg p-4 bg-gray-50 mb-4">
-            <h3 className="font-semibold mb-2">Sample Solution</h3>
-            <pre className="bg-gray-100 p-3 rounded overflow-x-auto text-sm">
+          <div className="border border-learning-border rounded-lg p-3 sm:p-4 bg-gray-50 mb-3 sm:mb-4">
+            <h3 className="font-semibold mb-2 text-sm sm:text-base">Sample Solution</h3>
+            <pre className="bg-gray-100 p-2 sm:p-3 rounded overflow-x-auto text-xs sm:text-sm">
               <code>{sampleSolution}</code>
             </pre>
           </div>
@@ -230,7 +231,7 @@ const ProblemDetail = ({
           value={solution}
           onChange={(e) => setSolution(e.target.value)}
           placeholder="Write your code solution here..."
-          className="min-h-[200px] font-mono"
+          className="min-h-[150px] sm:min-h-[200px] font-mono text-sm"
         />
       </div>
 
@@ -239,43 +240,43 @@ const ProblemDetail = ({
           <img
             src={image}
             alt="Uploaded solution"
-            className="w-full h-48 object-cover rounded"
+            className="w-full h-36 sm:h-48 object-cover rounded"
           />
         </div>
       )}
 
-      <div className="flex items-center space-x-3">
+      <div className="flex flex-col sm:flex-row items-center gap-2 sm:space-x-3">
         <Button
           variant="outline"
-          className="flex-1"
+          className="w-full sm:flex-1 text-xs sm:text-sm py-1 h-9"
           onClick={handleImageUpload}
         >
-          <Image className="mr-2 h-4 w-4" />
+          <Image className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
           Gallery
         </Button>
         <Button
           variant="outline"
-          className="flex-1"
+          className="w-full sm:flex-1 text-xs sm:text-sm py-1 h-9"
           onClick={handleCameraCapture}
         >
-          <Camera className="mr-2 h-4 w-4" />
+          <Camera className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
           Camera
         </Button>
         <Button
-          className="flex-1 blue-gradient"
+          className="w-full sm:flex-1 blue-gradient text-xs sm:text-sm py-1 h-9"
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
-          <Send className="mr-2 h-4 w-4" />
+          <Send className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
           {isSubmitting ? "Submitting..." : "Submit Solution"}
         </Button>
       </div>
 
       {/* OCR Instructions - Shown when there's no solution yet */}
       {!solution && !image && (
-        <div className="border border-learning-border rounded-lg p-4 bg-learning-card">
-          <h3 className="font-semibold mb-2">How to Use OCR in This App</h3>
-          <ol className="list-decimal list-inside space-y-2 text-gray-600">
+        <div className="border border-learning-border rounded-lg p-3 sm:p-4 bg-learning-card">
+          <h3 className="font-semibold mb-2 text-sm sm:text-base">How to Use OCR in This App</h3>
+          <ol className="list-decimal list-inside space-y-1 sm:space-y-2 text-gray-600 text-xs sm:text-sm">
             <li>Write your problem solution clearly on a paper</li>
             <li>Capture a photo of the paper or upload an image</li>
             <li>The app will scan the image and convert text to digital format</li>

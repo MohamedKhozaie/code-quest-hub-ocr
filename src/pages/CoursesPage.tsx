@@ -140,10 +140,8 @@ const CoursesPage = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t mt-16 py-8">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>© 2024 Code Quest Hub. All rights reserved.</p>
-        </div>
+      <footer className="mt-12 border-t border-gray-200 pt-6 pb-8 text-center text-gray-500 text-sm">
+        <p>© 2024 Programming Hub. All rights reserved.</p>
       </footer>
     </div>
   );

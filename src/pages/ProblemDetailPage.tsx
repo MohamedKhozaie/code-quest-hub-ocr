@@ -121,23 +121,23 @@ const ProblemDetailPage = () => {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <main className="container px-4 mx-auto py-8">
+      <main className="container px-4 mx-auto py-4 sm:py-8">
         <div className="max-w-4xl mx-auto">
           {loading ? (
-            <div className="space-y-4">
-              <Skeleton className="h-12 w-3/4" />
-              <Skeleton className="h-32 w-full" />
-              <Skeleton className="h-24 w-full" />
-              <Skeleton className="h-48 w-full" />
+            <div className="space-y-3 sm:space-y-4">
+              <Skeleton className="h-8 sm:h-12 w-3/4" />
+              <Skeleton className="h-24 sm:h-32 w-full" />
+              <Skeleton className="h-20 sm:h-24 w-full" />
+              <Skeleton className="h-36 sm:h-48 w-full" />
             </div>
           ) : problem ? (
-            <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+            <div className="bg-white rounded-lg border border-gray-200 p-3 sm:p-6 shadow-sm">
               <ProblemDetail {...problem} />
             </div>
           ) : (
-            <div className="text-center py-12">
-              <h2 className="text-2xl font-semibold text-gray-800">Problem not found</h2>
-              <p className="text-gray-600 mt-2">The problem you're looking for doesn't exist.</p>
+            <div className="text-center py-8 sm:py-12">
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">Problem not found</h2>
+              <p className="text-gray-600 mt-2 text-sm sm:text-base">The problem you're looking for doesn't exist.</p>
             </div>
           )}
         </div>
