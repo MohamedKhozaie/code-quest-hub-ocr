@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Camera, Image, Send } from "lucide-react";
@@ -9,10 +8,18 @@ interface ProblemDetailProps {
   id: string;
   title: string;
   description: string;
+  difficulty?: string;
   examples: Array<{
     input: string;
     output: string;
     explanation?: string;
+  }>;
+  constraints?: string;
+  hints?: string[];
+  sampleSolution?: string;
+  testCases?: Array<{
+    input: any;
+    expected: any;
   }>;
 }
 
@@ -20,11 +27,17 @@ const ProblemDetail = ({
   id,
   title,
   description,
+  difficulty,
   examples,
+  constraints,
+  hints,
+  sampleSolution,
+  testCases,
 }: ProblemDetailProps) => {
   const [solution, setSolution] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSolution, setShowSolution] = useState(false);
   const { toast } = useToast();
 
   const handleImageUpload = () => {
@@ -61,24 +74,75 @@ const ProblemDetail = ({
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Randomly succeed or fail to demonstrate both scenarios
-      const isSuccess = Math.random() > 0.3;
-      
-      if (isSuccess) {
-        toast({
-          title: "Success!",
-          description: "Your solution has been submitted successfully.",
-          className: "success-gradient",
-        });
+
+      // If we have test cases, try to evaluate the solution
+      if (testCases && testCases.length > 0) {
+        try {
+          // Create a function from the solution code
+          // This is a simplified approach - in a real app, you'd use a secure sandbox
+          const userFunction = new Function('return ' + solution)();
+
+          // Check if the function passes all test cases
+          const results = testCases.map((testCase, index) => {
+            try {
+              const output = userFunction(testCase.input);
+              const passed = JSON.stringify(output) === JSON.stringify(testCase.expected);
+              return { passed, index };
+            } catch (error) {
+              return { passed: false, index, error: error.message };
+            }
+          });
+
+          const failedTests = results.filter(r => !r.passed);
+
+          if (failedTests.length === 0) {
+            toast({
+              title: "Success!",
+              description: `Your solution passed all ${testCases.length} test cases.`,
+              className: "success-gradient",
+            });
+          } else {
+            toast({
+              variant: "destructive",
+              title: "Test cases failed",
+              description: `Your solution failed on ${failedTests.length} test case(s).`,
+              className: "error-gradient",
+            });
+          }
+        } catch (error) {
+          toast({
+            variant: "destructive",
+            title: "Error occurred",
+            description: `Could not evaluate your solution: ${error.message}`,
+            className: "error-gradient",
+          });
+        }
       } else {
-        toast({
-          variant: "destructive",
-          title: "Error occurred",
-          description: "The code has a syntax error on line 6.",
-          className: "error-gradient",
-        });
+        // Randomly succeed or fail to demonstrate both scenarios
+        const isSuccess = Math.random() > 0.3;
+
+        if (isSuccess) {
+          toast({
+            title: "Success!",
+            description: "Your solution has been submitted successfully.",
+            className: "success-gradient",
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Error occurred",
+            description: "The code has a syntax error on line 6.",
+            className: "error-gradient",
+          });
+        }
       }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error occurred",
+        description: "Failed to submit your solution. Please try again.",
+        className: "error-gradient",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -87,15 +151,32 @@ const ProblemDetail = ({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold mb-2">{title}</h1>
+        <div className="flex items-center justify-between mb-2">
+          <h1 className="text-2xl font-bold">{title}</h1>
+          {difficulty && (
+            <span className={`px-3 py-1 rounded-full text-sm font-medium ${difficulty === "Easy" ? "bg-green-100 text-green-800" :
+              difficulty === "Medium" ? "bg-yellow-100 text-yellow-800" :
+                "bg-red-100 text-red-800"
+              }`}>
+              {difficulty}
+            </span>
+          )}
+        </div>
         <p className="text-gray-600 whitespace-pre-line">{description}</p>
       </div>
+
+      {constraints && (
+        <div>
+          <h2 className="text-lg font-semibold">Constraints</h2>
+          <p className="text-gray-600 whitespace-pre-line">{constraints}</p>
+        </div>
+      )}
 
       <div className="space-y-4">
         <h2 className="text-lg font-semibold">Examples</h2>
         {examples.map((example, index) => (
-          <div 
-            key={index} 
+          <div
+            key={index}
             className="border border-learning-border rounded-lg p-4 bg-learning-card"
           >
             <div className="mb-2">
@@ -113,8 +194,38 @@ const ProblemDetail = ({
         ))}
       </div>
 
+      {hints && hints.length > 0 && (
+        <div className="space-y-2">
+          <h2 className="text-lg font-semibold">Hints</h2>
+          <ul className="list-disc list-inside space-y-1 text-gray-600">
+            {hints.map((hint, index) => (
+              <li key={index}>{hint}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="space-y-2">
-        <h2 className="text-lg font-semibold">Your Solution</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold">Your Solution</h2>
+          {sampleSolution && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowSolution(!showSolution)}
+            >
+              {showSolution ? "Hide Solution" : "Show Solution"}
+            </Button>
+          )}
+        </div>
+        {showSolution && sampleSolution && (
+          <div className="border border-learning-border rounded-lg p-4 bg-gray-50 mb-4">
+            <h3 className="font-semibold mb-2">Sample Solution</h3>
+            <pre className="bg-gray-100 p-3 rounded overflow-x-auto text-sm">
+              <code>{sampleSolution}</code>
+            </pre>
+          </div>
+        )}
         <Textarea
           value={solution}
           onChange={(e) => setSolution(e.target.value)}
@@ -125,32 +236,32 @@ const ProblemDetail = ({
 
       {image && (
         <div className="border border-learning-border rounded-lg p-2 overflow-hidden">
-          <img 
-            src={image} 
-            alt="Uploaded solution" 
+          <img
+            src={image}
+            alt="Uploaded solution"
             className="w-full h-48 object-cover rounded"
           />
         </div>
       )}
 
       <div className="flex items-center space-x-3">
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           className="flex-1"
           onClick={handleImageUpload}
         >
           <Image className="mr-2 h-4 w-4" />
           Gallery
         </Button>
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           className="flex-1"
           onClick={handleCameraCapture}
         >
           <Camera className="mr-2 h-4 w-4" />
           Camera
         </Button>
-        <Button 
+        <Button
           className="flex-1 blue-gradient"
           onClick={handleSubmit}
           disabled={isSubmitting}

@@ -8,39 +8,66 @@ import coursesData from "@/data/coursesData";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { motion } from "framer-motion";
 
 // Convert the object to an array for easier filtering
 const coursesArray = Object.values(coursesData);
 
-// Get unique categories
-const getUniqueCategories = (lang: "en" | "ar") => {
-  const categories = coursesArray.map(course => course.category[lang]);
-  return ["all", ...new Set(categories)];
-};
+interface CourseListProps {
+  initialSearchQuery?: string;
+  initialCategoryFilter?: string;
+  language?: "en" | "ar";
+  onLanguageChange?: (language: "en" | "ar") => void;
+}
 
-const CourseList = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [language, setLanguage] = useState<"en" | "ar">("en");
-  const [categoryFilter, setCategoryFilter] = useState<string>("all");
+const CourseList = ({
+  initialSearchQuery = "",
+  initialCategoryFilter = "all",
+  language: propLanguage,
+  onLanguageChange
+}: CourseListProps) => {
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
+  const [language, setLanguage] = useState<"en" | "ar">(propLanguage || "en");
+  const [categoryFilter, setCategoryFilter] = useState<string>(initialCategoryFilter);
   const [sortOption, setSortOption] = useState<string>("default");
   const [visibleItems, setVisibleItems] = useState<number>(6);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedView, setSelectedView] = useState<"grid" | "list">("grid");
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     // Simulate loading data
     const timer = setTimeout(() => {
       setIsLoading(false);
+      // Trigger animation after loading
+      setIsVisible(true);
     }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
 
+  // Update search query when initialSearchQuery prop changes
+  useEffect(() => {
+    setSearchQuery(initialSearchQuery);
+  }, [initialSearchQuery]);
+
+  // Update category filter when initialCategoryFilter prop changes
+  useEffect(() => {
+    setCategoryFilter(initialCategoryFilter);
+  }, [initialCategoryFilter]);
+
+  // Update language when propLanguage changes
+  useEffect(() => {
+    if (propLanguage) {
+      setLanguage(propLanguage);
+    }
+  }, [propLanguage]);
+
   // Toggle language function
   const toggleLanguage = () => {
-    setLanguage(language === "en" ? "ar" : "en");
-    setCategoryFilter("all");
+    const newLanguage = language === "en" ? "ar" : "en";
+    setLanguage(newLanguage);
+    if (onLanguageChange) {
+      onLanguageChange(newLanguage);
+    }
   };
 
   // Filter courses based on search query and category
@@ -78,25 +105,8 @@ const CourseList = () => {
     setVisibleItems(prevValue => prevValue + 6);
   };
 
-  const categories = getUniqueCategories(language);
   const isRTL = language === "ar";
   const displayedCourses = sortedCourses.slice(0, visibleItems);
-
-  // Animation variants for list items
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
-  };
 
   return (
     <div className={`space-y-8 ${isRTL ? 'rtl' : ''}`}>
@@ -138,19 +148,6 @@ const CourseList = () => {
         </div>
 
         <div className="flex items-center justify-between mb-6">
-          <TabsList className="bg-gray-100">
-            {categories.map((category) => (
-              <TabsTrigger
-                key={category}
-                value={category}
-                onClick={() => setCategoryFilter(category)}
-                className={categoryFilter === category ? 'bg-white shadow-sm' : ''}
-              >
-                {category === "all" ? (language === "en" ? "All Courses" : "كل الدورات") : category}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-
           <div className="flex items-center gap-2">
             <Badge variant="secondary" className="bg-gray-100">
               <Users className="w-4 h-4 mr-1" />
@@ -196,17 +193,17 @@ const CourseList = () => {
           </div>
         ) : (
           <>
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="show"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            <div
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-0 transition-opacity duration-500 ${isVisible ? 'opacity-100' : ''}`}
             >
-              {displayedCourses.map((course) => (
-                <motion.div
+              {displayedCourses.map((course, index) => (
+                <div
                   key={course.id}
-                  variants={itemVariants}
                   className="transform transition-all duration-300 hover:scale-[1.02]"
+                  style={{
+                    transitionDelay: `${index * 100}ms`,
+                    animation: `fadeInUp 0.5s ease forwards ${index * 0.1}s`
+                  }}
                 >
                   <CourseCard
                     id={course.id}
@@ -219,9 +216,9 @@ const CourseList = () => {
                     chaptersCount={course.chapters.length}
                     estimatedHours={Math.floor(Math.random() * 10) + 5}
                   />
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
 
             {displayedCourses.length < filteredCourses.length && (
               <div className="mt-8 text-center">

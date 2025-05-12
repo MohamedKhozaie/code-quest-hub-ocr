@@ -1,8 +1,28 @@
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import CourseList from "@/components/courses/CourseList";
-import { GraduationCap, BookOpen, Users, Trophy } from "lucide-react";
+import CategoryFilter from "@/components/courses/CategoryFilter";
+import { GraduationCap, BookOpen, Users, Trophy, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 const CoursesPage = () => {
+  const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [language, setLanguage] = useState<"en" | "ar">("en");
+
+  // Parse search params on component mount
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const searchParam = params.get("search");
+    if (searchParam) {
+      setSearchQuery(searchParam);
+    }
+  }, [location.search]);
+
   // Stats for the header section
   const stats = [
     {
@@ -31,6 +51,15 @@ const CoursesPage = () => {
     }
   ];
 
+  const handleCategoryChange = (category: string) => {
+    setCategoryFilter(category);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // The search functionality is handled by the CourseList component
+  };
+
   return (
     <div className="min-h-screen bg-gray-50/50">
       <Navbar />
@@ -45,6 +74,26 @@ const CoursesPage = () => {
             Discover a world of knowledge with our expertly crafted courses.
             Learn at your own pace and achieve your goals with our comprehensive learning paths.
           </p>
+
+          {/* Search Bar */}
+          <div className="mt-8 max-w-md mx-auto">
+            <form onSubmit={handleSearchSubmit} className="relative">
+              <Input
+                type="text"
+                placeholder="Search courses..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-4 py-2 rounded-full border border-gray-200 focus:border-primary"
+              />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <Button
+                type="submit"
+                className="absolute right-1 top-1/2 transform -translate-y-1/2 rounded-full px-4 py-1 h-8 bg-primary text-white"
+              >
+                Search
+              </Button>
+            </form>
+          </div>
         </div>
 
         {/* Stats Section */}
@@ -70,9 +119,23 @@ const CoursesPage = () => {
           ))}
         </div>
 
+        {/* Category Filter */}
+        <Card className="p-6 mb-8">
+          <h2 className="text-xl font-semibold mb-4">Browse by Category</h2>
+          <CategoryFilter
+            language={language}
+            onCategoryChange={handleCategoryChange}
+          />
+        </Card>
+
         {/* Course List */}
         <div className="max-w-7xl mx-auto">
-          <CourseList />
+          <CourseList
+            initialSearchQuery={searchQuery}
+            initialCategoryFilter={categoryFilter}
+            language={language}
+            onLanguageChange={(lang) => setLanguage(lang)}
+          />
         </div>
       </main>
 
