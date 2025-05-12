@@ -1,4 +1,3 @@
-
 export interface Lesson {
   id: string;
   title: {
@@ -336,284 +335,50 @@ const coursesData: Record<string, Course> = {
     id: "python-data-science",
     title: {
       en: "Python for Data Science",
-      ar: "بايثون لعلم البيانات"
+      ar: "بايثون لعلوم البيانات"
     },
     briefDescription: {
-      en: "Master data analysis and visualization with Python",
-      ar: "إتقان تحليل البيانات والتصور باستخدام بايثون"
+      en: "Master data analysis and machine learning with Python",
+      ar: "إتقان تحليل البيانات والتعلم الآلي باستخدام بايثون"
     },
     detailedDescription: {
-      en: "Dive into the world of data science with Python, the most popular programming language for data analysis. This course covers essential Python libraries like Pandas, NumPy, and Matplotlib, and guides you through the entire data science workflow from data collection to visualization and interpretation. Whether you're a complete beginner or have some programming experience, this course will equip you with the skills to extract valuable insights from complex datasets.",
-      ar: "انغمس في عالم علم البيانات مع بايثون، اللغة البرمجية الأكثر شعبية لتحليل البيانات. تغطي هذه الدورة مكتبات بايثون الأساسية مثل Pandas وNumPy وMatplotlib، وترشدك خلال سير عمل علم البيانات بالكامل من جمع البيانات إلى التصور والتفسير. سواء كنت مبتدئًا تمامًا أو لديك بعض الخبرة في البرمجة، ستزودك هذه الدورة بالمهارات اللازمة لاستخراج رؤى قيمة من مجموعات البيانات المعقدة."
+      en: "Dive into the world of data science using Python. Learn essential libraries like NumPy, Pandas, and Scikit-learn. Build real-world machine learning models and data visualization projects. Perfect for aspiring data scientists and analysts.",
+      ar: "انغمس في عالم علوم البيانات باستخدام بايثون. تعلم المكتبات الأساسية مثل NumPy وPandas وScikit-learn. قم ببناء نماذج تعلم آلي ومشاريع تصور البيانات من العالم الحقيقي. مثالي للراغبين في أن يصبحوا علماء بيانات ومحللين."
     },
     category: {
       en: "Data Science",
-      ar: "علم البيانات"
+      ar: "علوم البيانات"
     },
     language: {
       en: "English",
       ar: "الإنجليزية"
     },
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1518932945647-7a1c969f8be2?w=800&auto=format&fit=crop",
     imagePlaceholder: {
-      en: "Python logo with data analysis charts and graphs",
-      ar: "شعار بايثون مع رسوم بيانية لتحليل البيانات"
+      en: "Data visualization and Python code on a computer screen",
+      ar: "تصور البيانات وكود بايثون على شاشة الكمبيوتر"
     },
     chapters: [
       {
-        id: "python-foundations",
+        id: "python-basics",
         title: {
-          en: "Python Foundations for Data Science",
-          ar: "أساسيات بايثون لعلم البيانات"
+          en: "Python Fundamentals for Data Science",
+          ar: "أساسيات بايثون لعلوم البيانات"
         },
         lessons: [
           {
-            id: "intro-to-python",
+            id: "numpy-intro",
             title: {
-              en: "Introduction to Python for Data Analysis",
-              ar: "مقدمة في بايثون لتحليل البيانات"
+              en: "Introduction to NumPy",
+              ar: "مقدمة في NumPy"
             },
             briefDescription: {
-              en: "Learn why Python is the preferred language for data science",
-              ar: "تعرف لماذا بايثون هي اللغة المفضلة لعلم البيانات"
+              en: "Learn the fundamentals of numerical computing with NumPy",
+              ar: "تعلم أساسيات الحوسبة العددية باستخدام NumPy"
             },
             contentPlaceholder: {
-              en: "Overview of Python's role in data science. Comparison with other programming languages. Introduction to Jupyter notebooks and basic Python syntax.",
-              ar: "نظرة عامة على دور بايثون في علم البيانات. مقارنة مع لغات البرمجة الأخرى. مقدمة إلى دفاتر Jupyter وتركيب بايثون الأساسي."
-            },
-            hasQuiz: true,
-            isCompleted: true
-          },
-          {
-            id: "python-data-structures",
-            title: {
-              en: "Python Data Structures for Data Analysis",
-              ar: "هياكل بيانات بايثون لتحليل البيانات"
-            },
-            briefDescription: {
-              en: "Master lists, dictionaries, and other Python data structures",
-              ar: "إتقان القوائم والقواميس وهياكل بيانات بايثون الأخرى"
-            },
-            contentPlaceholder: {
-              en: "Detailed explanation of Python's built-in data structures. Code examples for manipulating lists, dictionaries, sets, and tuples. Practice exercises with real-world data.",
-              ar: "شرح مفصل لهياكل البيانات المدمجة في بايثون. أمثلة برمجية للتعامل مع القوائم والقواميس والمجموعات والمتتاليات. تمارين عملية مع بيانات من العالم الحقيقي."
-            },
-            hasQuiz: true,
-            isCompleted: true
-          },
-          {
-            id: "functions-control-flow",
-            title: {
-              en: "Functions and Control Flow",
-              ar: "الدوال وتدفق التحكم"
-            },
-            briefDescription: {
-              en: "Write efficient Python code with functions and control statements",
-              ar: "كتابة كود بايثون فعال باستخدام الدوال وعبارات التحكم"
-            },
-            contentPlaceholder: {
-              en: "Tutorial on defining and using functions in Python. Control flow statements including if-else, loops, and list comprehensions. Example functions for data preprocessing tasks.",
-              ar: "دروس حول تعريف واستخدام الدوال في بايثون. عبارات تدفق التحكم بما في ذلك if-else، الحلقات، وقوائم الاستيعاب. أمثلة دوال لمهام معالجة البيانات المسبقة."
-            },
-            hasQuiz: true,
-            isCompleted: false
-          }
-        ],
-        isCompleted: false
-      },
-      {
-        id: "numpy-pandas",
-        title: {
-          en: "NumPy and Pandas Fundamentals",
-          ar: "أساسيات NumPy و Pandas"
-        },
-        lessons: [
-          {
-            id: "numpy-arrays",
-            title: {
-              en: "Working with NumPy Arrays",
-              ar: "العمل مع مصفوفات NumPy"
-            },
-            briefDescription: {
-              en: "Learn to use NumPy for numerical computing in Python",
-              ar: "تعلم استخدام NumPy للحوسبة العددية في بايثون"
-            },
-            contentPlaceholder: {
-              en: "Introduction to NumPy arrays and vectorized operations. Performance benefits over Python lists. Mathematical operations and broadcasting with NumPy.",
-              ar: "مقدمة إلى مصفوفات NumPy والعمليات المتجهية. فوائد الأداء مقارنة بقوائم بايثون. العمليات الرياضية والبث باستخدام NumPy."
-            },
-            hasQuiz: true,
-            isCompleted: false
-          },
-          {
-            id: "pandas-dataframes",
-            title: {
-              en: "Data Manipulation with Pandas",
-              ar: "معالجة البيانات باستخدام Pandas"
-            },
-            briefDescription: {
-              en: "Master DataFrame operations for effective data analysis",
-              ar: "إتقان عمليات DataFrame لتحليل البيانات الفعال"
-            },
-            contentPlaceholder: {
-              en: "Comprehensive guide to Pandas DataFrames and Series. Data loading, filtering, grouping, and aggregation. Handling missing data and data cleaning techniques.",
-              ar: "دليل شامل لـ DataFrames و Series في Pandas. تحميل البيانات، التصفية، التجميع، والتلخيص. التعامل مع البيانات المفقودة وتقنيات تنظيف البيانات."
-            },
-            hasQuiz: true,
-            isCompleted: false
-          },
-          {
-            id: "data-transformation",
-            title: {
-              en: "Data Transformation and Feature Engineering",
-              ar: "تحويل البيانات وهندسة الميزات"
-            },
-            briefDescription: {
-              en: "Learn techniques to prepare data for analysis and modeling",
-              ar: "تعلم تقنيات تحضير البيانات للتحليل والنمذجة"
-            },
-            contentPlaceholder: {
-              en: "Methods for transforming data structures and types. Feature engineering techniques for machine learning. Working with datetime, categorical, and text data.",
-              ar: "طرق تحويل هياكل وأنواع البيانات. تقنيات هندسة الميزات للتعلم الآلي. العمل مع بيانات التاريخ والوقت، البيانات الفئوية، والنصوص."
-            },
-            hasQuiz: true,
-            isCompleted: false
-          },
-          {
-            id: "data-merging",
-            title: {
-              en: "Merging and Joining Datasets",
-              ar: "دمج وربط مجموعات البيانات"
-            },
-            briefDescription: {
-              en: "Combine multiple datasets for comprehensive analysis",
-              ar: "دمج مجموعات بيانات متعددة للتحليل الشامل"
-            },
-            contentPlaceholder: {
-              en: "Various methods of combining datasets in Pandas. Different join types (inner, outer, left, right) with examples. Handling duplicate data during merging operations.",
-              ar: "طرق مختلفة لدمج مجموعات البيانات في Pandas. أنواع الانضمام المختلفة (داخلي، خارجي، يسار، يمين) مع أمثلة. التعامل مع البيانات المكررة أثناء عمليات الدمج."
-            },
-            hasQuiz: false,
-            isCompleted: false
-          }
-        ],
-        isCompleted: false
-      },
-      {
-        id: "data-visualization",
-        title: {
-          en: "Data Visualization with Python",
-          ar: "تصور البيانات باستخدام بايثون"
-        },
-        lessons: [
-          {
-            id: "matplotlib-basics",
-            title: {
-              en: "Creating Basic Charts with Matplotlib",
-              ar: "إنشاء مخططات أساسية باستخدام Matplotlib"
-            },
-            briefDescription: {
-              en: "Learn to create various types of plots with Matplotlib",
-              ar: "تعلم إنشاء أنواع مختلفة من المخططات باستخدام Matplotlib"
-            },
-            contentPlaceholder: {
-              en: "Introduction to Matplotlib's plotting functions. Creating line charts, bar charts, scatter plots, and histograms. Customizing plot appearance and saving figures.",
-              ar: "مقدمة إلى وظائف الرسم في Matplotlib. إنشاء مخططات خطية، مخططات شريطية، مخططات التشتت، والمدرجات التكرارية. تخصيص مظهر المخططات وحفظ الأشكال."
-            },
-            hasQuiz: true,
-            isCompleted: false
-          },
-          {
-            id: "seaborn-advanced",
-            title: {
-              en: "Advanced Visualization with Seaborn",
-              ar: "التصور المتقدم باستخدام Seaborn"
-            },
-            briefDescription: {
-              en: "Create more sophisticated statistical visualizations",
-              ar: "إنشاء تصورات إحصائية أكثر تطوراً"
-            },
-            contentPlaceholder: {
-              en: "Overview of Seaborn for statistical data visualization. Creating heatmaps, pair plots, joint distributions, and regression plots. Customizing Seaborn plots for professional presentations.",
-              ar: "نظرة عامة على Seaborn لتصور البيانات الإحصائية. إنشاء خرائط حرارية، مخططات زوجية، توزيعات مشتركة، ومخططات الانحدار. تخصيص مخططات Seaborn للعروض التقديمية الاحترافية."
-            },
-            hasQuiz: true,
-            isCompleted: false
-          },
-          {
-            id: "interactive-viz",
-            title: {
-              en: "Interactive Visualizations with Plotly",
-              ar: "التصورات التفاعلية باستخدام Plotly"
-            },
-            briefDescription: {
-              en: "Create interactive charts for dynamic data exploration",
-              ar: "إنشاء مخططات تفاعلية لاستكشاف البيانات الديناميكي"
-            },
-            contentPlaceholder: {
-              en: "Introduction to Plotly Express for interactive visualizations. Creating interactive scatter plots, line charts, and 3D visualizations. Adding hover information and animations to plots.",
-              ar: "مقدمة إلى Plotly Express للتصورات التفاعلية. إنشاء مخططات تشتت تفاعلية، مخططات خطية، وتصورات ثلاثية الأبعاد. إضافة معلومات التحويم والرسوم المتحركة إلى المخططات."
-            },
-            hasQuiz: false,
-            isCompleted: false
-          }
-        ],
-        isCompleted: false
-      },
-      {
-        id: "data-analysis",
-        title: {
-          en: "Practical Data Analysis",
-          ar: "تحليل البيانات العملي"
-        },
-        lessons: [
-          {
-            id: "exploratory-analysis",
-            title: {
-              en: "Exploratory Data Analysis",
-              ar: "تحليل البيانات الاستكشافي"
-            },
-            briefDescription: {
-              en: "Learn systematic approaches to understand your datasets",
-              ar: "تعلم نهج منهجي لفهم مجموعات البيانات الخاصة بك"
-            },
-            contentPlaceholder: {
-              en: "Methods for initial data exploration. Descriptive statistics and distribution analysis. Identifying patterns, relationships, and anomalies in data.",
-              ar: "طرق الاستكشاف الأولي للبيانات. الإحصاءات الوصفية وتحليل التوزيع. تحديد الأنماط والعلاقات والشذوذ في البيانات."
-            },
-            hasQuiz: true,
-            isCompleted: false
-          },
-          {
-            id: "statistical-analysis",
-            title: {
-              en: "Statistical Analysis with Python",
-              ar: "التحليل الإحصائي باستخدام بايثون"
-            },
-            briefDescription: {
-              en: "Apply statistical methods to derive insights from data",
-              ar: "تطبيق الأساليب الإحصائية لاستخلاص الرؤى من البيانات"
-            },
-            contentPlaceholder: {
-              en: "Implementation of statistical tests in Python. Correlation analysis, hypothesis testing, and confidence intervals. Practical examples using real-world datasets.",
-              ar: "تنفيذ الاختبارات الإحصائية في بايثون. تحليل الارتباط، اختبار الفرضيات، وفترات الثقة. أمثلة عملية باستخدام مجموعات بيانات من العالم الحقيقي."
-            },
-            hasQuiz: true,
-            isCompleted: false
-          },
-          {
-            id: "case-study",
-            title: {
-              en: "Data Science Case Study",
-              ar: "دراسة حالة في علم البيانات"
-            },
-            briefDescription: {
-              en: "Apply all learned concepts to a real-world analysis project",
-              ar: "تطبيق جميع المفاهيم المكتسبة على مشروع تحليل من العالم الحقيقي"
-            },
-            contentPlaceholder: {
-              en: "End-to-end data analysis project. Data acquisition, cleaning, exploration, visualization, and interpretation. Presenting findings and actionable insights.",
-              ar: "مشروع تحليل بيانات شامل. اكتساب البيانات، التنظيف، الاستكشاف، التصور، والتفسير. تقديم النتائج والرؤى القابلة للتنفيذ."
+              en: "Comprehensive guide to NumPy arrays, operations, and mathematical functions. Includes practical examples and exercises.",
+              ar: "دليل شامل لمصفوفات NumPy والعمليات والدوال الرياضية. يتضمن أمثلة عملية وتمارين."
             },
             hasQuiz: true,
             isCompleted: false
@@ -2063,6 +1828,63 @@ const coursesData: Record<string, Course> = {
             contentPlaceholder: {
               en: "End-to-end machine learning project covering all course concepts. Data collection, preprocessing, model selection and training. Evaluation, optimization, and deployment of your solution.",
               ar: "مشروع تعلم آلي شامل يغطي جميع مفاهيم الدورة. جمع البيانات، المعالجة المسبقة، اختيار النموذج والتدريب. تقييم وتحسين ونشر الحل الخاص بك."
+            },
+            hasQuiz: true,
+            isCompleted: false
+          }
+        ],
+        isCompleted: false
+      }
+    ]
+  },
+  "web-security": {
+    id: "web-security",
+    title: {
+      en: "Web Security Fundamentals",
+      ar: "أساسيات أمن الويب"
+    },
+    briefDescription: {
+      en: "Learn to secure web applications from common vulnerabilities",
+      ar: "تعلم كيفية تأمين تطبيقات الويب من نقاط الضعف الشائعة"
+    },
+    detailedDescription: {
+      en: "Master essential web security concepts and best practices. Learn about common vulnerabilities, authentication systems, and secure coding practices. Includes hands-on exercises with real-world security scenarios.",
+      ar: "أتقن مفاهيم وأفضل ممارسات أمن الويب الأساسية. تعرف على نقاط الضعف الشائعة وأنظمة المصادقة وممارسات البرمجة الآمنة. يتضمن تمارين عملية مع سيناريوهات أمنية من العالم الحقيقي."
+    },
+    category: {
+      en: "Security",
+      ar: "الأمن"
+    },
+    language: {
+      en: "English",
+      ar: "الإنجليزية"
+    },
+    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&auto=format&fit=crop",
+    imagePlaceholder: {
+      en: "Cybersecurity concept with lock and digital interface",
+      ar: "مفهوم الأمن السيبراني مع قفل وواجهة رقمية"
+    },
+    chapters: [
+      {
+        id: "security-basics",
+        title: {
+          en: "Security Fundamentals",
+          ar: "أساسيات الأمن"
+        },
+        lessons: [
+          {
+            id: "owasp-top-10",
+            title: {
+              en: "OWASP Top 10 Vulnerabilities",
+              ar: "أهم 10 ثغرات أمنية حسب OWASP"
+            },
+            briefDescription: {
+              en: "Understanding and preventing common web vulnerabilities",
+              ar: "فهم ومنع نقاط الضعف الشائعة في الويب"
+            },
+            contentPlaceholder: {
+              en: "Detailed analysis of OWASP Top 10 security risks with practical examples and prevention techniques.",
+              ar: "تحليل مفصل لأهم 10 مخاطر أمنية حسب OWASP مع أمثلة عملية وتقنيات الوقاية."
             },
             hasQuiz: true,
             isCompleted: false
